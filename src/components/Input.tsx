@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import React,{ memo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSearchParts } from "../Context/SearchContext";
 
@@ -15,11 +15,15 @@ function Input(){
       const controller = new AbortController();
       const signal = controller.signal;
        const fetchSearchItems = async () => {
-        setLoading(true);
+       if(setLoading) 
+          setLoading(true);
       	 const res = await fetch(`https://airbus-project-server.vercel.app/search?q=${search}`,{signal});
       	 const json = await res.json();
-      	setLoading(false);
-           setSearchItems(json);
+      if(setLoading)	
+        setLoading(false);
+           
+          if(setSearchItems) 
+              setSearchItems(json);
            console.log(json);
        }
       
